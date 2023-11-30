@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outbox</title>
+</head>
+<script>
+    function deleteEmails() {
+        const checked = document.querySelectorAll(".emailCheckbox:checked");
+
+        if (checked.length === 0) {
+            console.error("Please select an email first!");
+            return;
+        }
+
+        const emailIDs = Array.from(checked).map(checkbox => checkbox.value);
+
+        console.log(emailIDs);
+
+        fetch('/outbox/delete', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ emailID: emailIDs })
+        })
+        .then(response => {
+            if (response.ok) {
+                checked.forEach(checkbox => {
+                    const emailRow = checkbox.closest('tr');
+                    emailRow.remove();
+                })
+                console.log("Email is successfully deleted!");
+            } else {
+                console.log("Failed to delete the email");
+            }
+        })
+        .catch(error => console.error('Error during fetch:', error));
+    }
+</script>
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: calc(100vh - 110px);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main {
+        display: flex;
+
+    }
+
+    .inbox {
+        background-color: #ffffff;
+        padding: 30px 50px;
+        flex-grow: 1;
+        border-radius: 32px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    tr {
+        cursor: pointer;
+        border: 1px solid #dad5d5;
+        padding: 15px;
+        text-align: left; 
+        transition: box-shadow 0.3s;
+    }
+
+    tr:hover {
+        box-shadow: 0 2px 5px rgba(54, 54, 54, 0.5);
+    }
+
+    td {
+        border: none;
+        padding: 15px;
+        text-align: left;
+    }
+
+    .checkboxCol {
+        width: 5%;
+    }
+
+    input[type='checkbox'] {
+        cursor: pointer;
+    }
+
+    .subjectCol {
+        width: 55%;
+    }
+
+    .dateCol {
+        width: 15%;
+    }
+
+    .pagination {
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        color: #2b2929;
+        padding: 8px 12px;
+        margin: 0 4px;
+        border: 1px solid #dad5d5;
+        border-radius: 8px;
+        transition: box-shadow 0.3s;
+    }
+
+    .pagination a:hover {
+        background-color: #d7d7d7;
+    }
+
+    .pagination a.active {
+        background-color: #d7d7d7;
+    }
+
+    .deleteButton {
+        padding-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .deleteButton button {
+        cursor: pointer;
+        padding: 14px 26px;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: #db4040a8;
+        border: 1px solid #dad5d5;
+        border-radius: 4px;
+    }
+</style>
+<body>
+    <%- include('header'); -%>
+        <div class="main">
+            <%- include('navbar'); -%>
+                <div class="inbox">
+                    <h1>Inbox</h1>
+                    <% if (userEmails.length > 0) { %>
+                        <table>
+                            <tbody>
+                                <% userEmails.forEach(email => { %>
+                                    <tr onclick="if (!event.target.matches('input[type=checkbox]')) window.location='/outbox/email/<%= email.id %>'">
+                                        <td class="checkboxCol">
+                                            <input type="checkbox" class="emailCheckbox" value="<%= email.id %>"/>
+                                        </td>
+                                        <td class="recipientCol">To: <%= email.recipient_name %></td>
+                                        <td class="subjectCol"><%= email.subject || '(no subject)' %></td>
+                                        <td class="dateCol"><%= email.formatted_date %></td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                        <div class="deleteButton">
+                            <button onclick="deleteEmails()">Delete</button>
+                        </div>
+                        <div class="pagination">
+                            <% for (let i = 1; i <= totalPages; i++) { %>
+                                <a href="/outbox?page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>"><%= i %></a>
+                            <% } %>
+                        </div>
+                    <% } else { %>
+                        <p>No emails found.</p>
+                    <% } %>
+                </div>
+        </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-in</title>
+</head>
+<style>
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        background-color: #fff;
+        padding: 50px 60px;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .title {
+        margin-bottom: 10px;
+        text-align: center;
+        color: #2c2929;
+    }
+
+    .title2 {
+        margin-bottom: 30px;
+        text-align: center;
+        color: #2c2929;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    label {
+        margin-bottom: 8px;
+        color: #555555;
+    }
+
+    input {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    input[type="submit"] {
+        margin-top: 8px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="form">
+            <div class="headerTitle">
+                <h1 class="title">Welcomeback to MailBox!</h1>
+                <h1 class="title2">Sign-in</h1>
+            </div>
+            <form action="" method="post">
+                <label for="email">Email:
+                    <% if (typeof errors !=='undefined' && errors.email) { %>
+                        <span style="color: red;">
+                            <%= errors.email %>
+                        </span>
+                    <% } %>
+                </label>
+                <input type="text" name="email" id="email" required />
+                <label for="password">Password:
+                    <% if (typeof errors !=='undefined' && errors.password) { %>
+                        <span style="color: red;">
+                            <%= errors.password %>
+                        </span>
+                    <% } %>
+                </label>
+                <input type="password" name="password" id="password" required />
+                <input type="submit" value="Signin" />
+            </form>
+            <p>Don't have an account? Create <a href="/signup">here</a> instead!</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<style>
+    header {
+        background-color: #f4f4f4;
+        color: #fff;
+        padding: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .welcomeUser {
+        font-size: 18px;
+        margin-right: 20px;
+        margin-left: 20px;
+        color: #474747;
+    }
+
+    .btn button {
+        background-color: #ddd;
+        color: #474747;
+        border: none;
+        padding: 8px 32px;
+        margin-right: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+    }
+
+    .btn button:hover {
+        background-color: #d3d3d3;
+        box-shadow: 0 2px 5px rgba(54, 54, 54, 0.5);
+    }
+</style>
+<header>
+    <div class="welcomeUser">
+        Welcome, <%= username %>!
+    </div>
+    <div class="btn">
+        <form action="/signout" method="post">
+            <button type="submit">Sign Out</button>
+        </form>
+    </div>
+</header>

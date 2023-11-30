@@ -1,0 +1,81 @@
+<script>
+    function setActiveLink(link) {
+        const links = document.querySelectorAll('.navbar .section2 .pages');
+        links.forEach(item => {
+            item.classList.remove('active');
+        });
+
+        link.classList.add('active');
+    }
+</script>
+<style>
+    nav {
+        background-color: #f4f4f4;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        padding-right: 10px;
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navbar .section1 {
+        margin: 8px 0 16px 0;
+        padding: 0 50px 0 8px;
+    }
+
+    .navbar .section1 .btn {
+        background-color: #d3d3d3c7;
+        padding: 18px 30px;
+        cursor: pointer;
+        border-radius: 16px;
+        transition: box-shadow 0.2s;
+    }
+
+    .navbar .section1 .btn:hover {
+        box-shadow: 0 2px 5px rgba(54, 54, 54, 0.5);
+    }
+
+    .navbar .section1 .btn .composed {
+        color: #2b2929;
+        text-decoration: none;
+        padding: 8px;
+    }
+
+    .navbar .section2 {
+        padding: 0;
+    }
+
+    .navbar .section2 .pages {
+        display: flex;
+        transition: .3s ease-out;
+        color: #2b2929;
+        text-decoration: none;
+        padding: 12px 46px;
+        border-radius: 0 20px 20px 0;
+    }
+
+    .navbar .section2 .pages:hover {
+        background-color: #d3d3d3;
+    }
+
+    .navbar .section2 .pages.active {
+        background-color: #d3d3d3c7;
+    }
+</style>
+<nav>
+    <div class="navbar">
+        <div class="section1">
+            <div class="btn">
+                <a href="/compose" class="composed">Compose</a>
+            </div>
+        </div>
+        <div class="section2">
+            <a href="/inbox" class="pages" onclick="setActiveLink(this)">Inbox</a>
+            <a href="/outbox" class="pages" onclick="setActiveLink(this)">Outbox</a>
+        </div>
+    </div>
+</nav>

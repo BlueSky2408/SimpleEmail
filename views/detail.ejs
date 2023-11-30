@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Content</title>
+</head>
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        height: calc(100vh - 110px);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main {
+        display: flex;
+    }
+
+    .email-content {
+        flex-grow: 1;
+        background-color: #ffffff;
+        padding: 24px 48px;
+        border-radius: 8px;
+    }
+
+    .email-content .format-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .email-content .user-info {
+        display: flex;
+    }
+
+    .email-content .user-info .username {
+        font-weight: 600;
+        padding-right: 5px;
+    }
+
+    .email-content .user-info .user-email {
+        color: #b49494;
+    }
+
+    .email-content .recipient-info {
+        display: flex;
+    }
+
+    .email-content .recipient-info .recipient-name {
+        font-size: 12px;
+        font-weight: 600;
+        padding-right: 5px;
+    }
+
+    .email-content .recipient-info .recipient-email {
+        font-size: 12px;
+        color: #b49494;
+    }
+
+    .email-content .content {
+        padding: 20px 0;
+    }
+</style>
+<body>
+    <%- include('header'); -%>
+    <div class="main">
+        <%- include('navbar'); -%>
+        <div class="email-content">
+            <h2><%= subject || '(no subject)' %></h2>
+            <div class="format-header">
+                <div class="user-info">
+                    <p class="username">From: <%= senderName %> </p>
+                    <p class="user-email">&lt;<%= senderEmail %>&gt;</p>
+                </div>
+                <p class="sent-date"><%= dateSent %></p>
+            </div>
+            <div class="recipient-info">
+                <p class="recipient-name">To: <%= recipientName %></p>
+                <p class="recipient-email">&lt;<%= recipientEmail %>&gt;</p>
+            </div>
+            <div class="content">
+                <p><%= content %></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

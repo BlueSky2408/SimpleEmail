@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-up</title>
+</head>
+<style>
+    body {
+        background-color: #fff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f4;
+        padding: 30px 50px;
+        max-width: 1000px;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .form {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .info {
+        flex: 1;
+        text-align: left;
+        max-height: 150px;
+    }
+
+    .title {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        color: #2c2929;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    label {
+        margin-bottom: 2px;
+        color: #555555;
+    }
+
+    input {
+        margin-top: 6px;
+        margin-bottom: 20px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+    }
+
+    input[type="submit"] {
+        margin-top: 8px;
+        margin-bottom: 2px;
+        background-color: #007bff;
+        padding: 10px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="form">
+            <h1 class="title">Sign-up</h1>
+            <form action="" method="post">
+                <label for="fullname">Fullname: </label>
+                <input type="text" name="fullname" id="fullname" required />
+                <label for="email">Email:
+                    <% if (typeof errors !== 'undefined' && errors.email) { %>
+                        <span style="color: red;">
+                            <%= errors.email %>
+                        </span>
+                    <% } %>
+                </label>
+                <input type="text" name="email" id="email" required />
+                <label for="password">Password: 
+                    <% if (typeof errors !=='undefined' && errors.password) { %>
+                        <span style="color: red;">
+                            <%= errors.password %>
+                        </span>
+                    <% } %>
+                </label>
+                <input type="password" name="password" id="password" required />
+                <label for="re-password">Re-enter password: 
+                    <% if (typeof errors !=='undefined' && errors.rePassword) { %>
+                        <span style="color: red;">
+                            <%= errors.rePassword %>
+                        </span>
+                    <% } %>
+                </label>
+                <input type="password" name="rePassword" id="rePassword" required />
+                <input type="submit" value="Create account" />
+                <p>Already have an account? Sign-in <a href="/">here</a> instead!</p>
+            </form>
+        </div>
+
+        <div class="info">
+            <h1 class="title2">Welcome to MailBox!</h1>
+            <p>
+                Here you can do a couple of simple task like sending emails
+                reading emails, storing emails, just like a normal gmail would do! <br />
+                But instead, it's a low-budget version...
+            </p>
+            <% if (typeof success !== 'undefined') { %>
+                <span style="color: green; font-size: 20px;">
+                    <%= success %>
+                </span>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>
